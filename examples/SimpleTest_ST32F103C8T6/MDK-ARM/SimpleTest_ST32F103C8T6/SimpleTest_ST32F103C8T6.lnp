@@ -1,0 +1,23 @@
+--cpu Cortex-M3
+"simpletest_st32f103c8t6\startup_stm32f103xb.o"
+"simpletest_st32f103c8t6\main.o"
+"simpletest_st32f103c8t6\stm32f1xx_it.o"
+"simpletest_st32f103c8t6\stm32f1xx_hal_msp.o"
+"simpletest_st32f103c8t6\stm32f1xx_hal_gpio_ex.o"
+"simpletest_st32f103c8t6\stm32f1xx_hal_tim.o"
+"simpletest_st32f103c8t6\stm32f1xx_hal_tim_ex.o"
+"simpletest_st32f103c8t6\stm32f1xx_hal.o"
+"simpletest_st32f103c8t6\stm32f1xx_hal_rcc.o"
+"simpletest_st32f103c8t6\stm32f1xx_hal_rcc_ex.o"
+"simpletest_st32f103c8t6\stm32f1xx_hal_gpio.o"
+"simpletest_st32f103c8t6\stm32f1xx_hal_dma.o"
+"simpletest_st32f103c8t6\stm32f1xx_hal_cortex.o"
+"simpletest_st32f103c8t6\stm32f1xx_hal_pwr.o"
+"simpletest_st32f103c8t6\stm32f1xx_hal_flash.o"
+"simpletest_st32f103c8t6\stm32f1xx_hal_flash_ex.o"
+"simpletest_st32f103c8t6\stm32f1xx_hal_exti.o"
+"simpletest_st32f103c8t6\system_stm32f1xx.o"
+--strict --scatter "SimpleTest_ST32F103C8T6\SimpleTest_ST32F103C8T6.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "SimpleTest_ST32F103C8T6.map" -o SimpleTest_ST32F103C8T6\SimpleTest_ST32F103C8T6.axf
