@@ -1,4 +1,5 @@
-simpletest_st32f103c8t6/main.o: ..\Core\Src\main.cpp ..\Core\Inc\main.h \
+simpletest_st32f103c8t6/timercontrol.o: ..\..\..\TimerControl.cpp \
+  ..\..\..\..\TimerControl_STM32\TimerControl.h \
   ..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal.h \
   ..\Core\Inc\stm32f1xx_hal_conf.h \
   ..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_rcc.h \
@@ -30,7 +31,6 @@ simpletest_st32f103c8t6/main.o: ..\Core\Src\main.cpp ..\Core\Inc\main.h \
   ..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_pwr.h \
   ..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim.h \
   ..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim_ex.h \
-  ..\..\..\..\TimerControl_STM32\TimerControl.h \
   D:\keil538a\ARM\ARMCLANG\Bin\..\include\libcxx\string \
   D:\keil538a\ARM\ARMCLANG\Bin\..\include\libcxx\__algorithm\max.h \
   D:\keil538a\ARM\ARMCLANG\Bin\..\include\libcxx\__algorithm\comp.h \

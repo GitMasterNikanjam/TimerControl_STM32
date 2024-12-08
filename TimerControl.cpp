@@ -5,84 +5,128 @@
 #include "TimerControl.h"
 
 
-TimerControl::TimerControl()
+TimerControl::TimerControl(TIM_HandleTypeDef *HANDLE)
 {
-    parameters.INSTANCE = nullptr;
-    parameters.PRESCALER = 0;
-    parameters.CLOCKDIVISION = 0;
-    parameters.RESOLUTION = 16;
+    _htim = HANDLE;
+
+    _clockFrq = 0;
+    _period = 0;
+    _frq = 0;
+    _periodElapsedCounter = 0;
+    _tMicros = 0;
+    _tMillis = 0;
+    _initFlag = false;
+}
+
+void TimerControl::setClockFrequency(uint32_t frq)
+{
+    _clockFrq = frq;
 }
 
 bool TimerControl::init(void)
 {
     if(_checkParameters() == false)
     {
+        _initFlag = true;
         return false;
-    }
-
-    TIM_ClockConfigTypeDef sClockSourceConfig = {0};
-    TIM_MasterConfigTypeDef sMasterConfig = {0};
-
-    /* USER CODE BEGIN TIM2_Init 1 */
-
-    /* USER CODE END TIM2_Init 1 */
-    _htim.Instance = parameters.INSTANCE;
-    _htim.Init.Prescaler = parameters.PRESCALER;
-    _htim.Init.CounterMode = TIM_COUNTERMODE_UP;
-
-    switch(parameters.RESOLUTION)
-    {
-        case 16:
-            _htim.Init.Period = 65535;
-        break;
-        case 32:
-            _htim.Init.Period = 4294967295;
-        break;
     }
     
-    _htim.Init.ClockDivision = parameters.CLOCKDIVISION;
-    _htim.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-    if (HAL_TIM_Base_Init(&_htim) != HAL_OK)
+    _htim->Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+
+    if (HAL_TIM_Base_Init(_htim) != HAL_OK)
     {
-        // Error_Handler();
-        return false;
-    }
-    sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-    if (HAL_TIM_ConfigClockSource(&_htim, &sClockSourceConfig) != HAL_OK)
-    {
-        // Error_Handler();
-        return false;
-    }
-    sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
-    sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-    if (HAL_TIMEx_MasterConfigSynchronization(&_htim, &sMasterConfig) != HAL_OK)
-    {
-        // Error_Handler();
+        errorMessage = "Error TimerControl: HAL_TIM_Base_Init() is failed.";
+        _initFlag = true;
         return false;
     }
 
-    HAL_TIM_Base_Start(&_htim);  // Start the timer
+    _frq = _clockFrq / ( (_htim->Instance->ARR + 1) * (_htim->Instance->PSC + 1) );
+   _period = (1000000.0 / _frq);
+
+    _initFlag = true;
+    return true;
+}
+
+bool TimerControl::start(void)
+{
+    if(_initFlag == false)
+    {
+        errorMessage = "Error TimerControl: Init is needed before start the timer.";
+        return false;
+    }
+
+    if(HAL_TIM_Base_Start_IT(_htim) == HAL_OK) 
+    {
+        errorMessage = "Error TimerControl: HAL_TIM_Base_Start_IT() is failed.";
+        return false;
+    } 
 
     return true;
 }
 
-uint32_t TimerControl::micros(void)
+void TimerControl::reset(void)
 {
-    return __HAL_TIM_GET_COUNTER(&_htim);
+    _htim->Instance->CNT = 0;
+    _periodElapsedCounter = 0; 
 }
 
-uint32_t TimerControl::millis(void)
+bool TimerControl::stop(void)
 {
-    return (float)micros() / 1000.0;
+    if(_initFlag == false)
+    {
+        errorMessage = "Error TimerControl: Init is needed before stop the timer.";
+        return false;
+    }
+
+    if(HAL_TIM_Base_Stop_IT(_htim) == HAL_OK) 
+    {
+        errorMessage = "Error TimerControl: HAL_TIM_Base_Stop_IT() is failed.";
+        return false;
+    } 
+
+    return true; 
+}
+
+void TimerControl::PeriodElapsedCallback(void)
+{
+    _periodElapsedCounter++;
+    _tMicros = _periodElapsedCounter * _period;
+}
+
+uint64_t TimerControl::micros(void)
+{
+    _tMicros = ((uint64_t)__HAL_TIM_GET_COUNTER(_htim) + (uint64_t)_periodElapsedCounter * _period);
+    return _tMicros;
+}
+
+uint64_t TimerControl::millis(void)
+{
+    _tMillis = micros() / 1000;
+    return _tMillis;
+}
+
+void TimerControl::delay(uint32_t value)
+{
+    uint64_t startTime = millis();
+
+    while((millis() - startTime) < value);
+}
+
+void TimerControl::delayMicroseconds(uint32_t value)
+{
+    uint64_t startTime = micros();
+
+    while((micros() - startTime) < value);
 }
 
 bool TimerControl::_checkParameters(void)
 {
-    bool state = ( (parameters.RESOLUTION == 16) || (parameters.RESOLUTION == 32) ) &&
-                 (parameters.INSTANCE != nullptr);
+    bool state = (_htim->Instance != nullptr) && (_htim->Init.CounterMode == TIM_COUNTERMODE_UP) &&
+                 (_htim->Init.Period > 0) && (_clockFrq > 0) && (__HAL_TIM_GET_IT_SOURCE(_htim, TIM_IT_UPDATE) == SET);
 
     if(state == false)
     {
+        errorMessage = "Error TimerControl: One or some parameters are not correct.";
         return false;
     }
 

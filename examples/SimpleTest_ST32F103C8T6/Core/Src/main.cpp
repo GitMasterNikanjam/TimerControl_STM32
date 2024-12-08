@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "TimerControl.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -43,8 +43,8 @@
 TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
-volatile uint32_t T;
-volatile uint32_t t;
+uint64_t T;
+TimerControl timer(&htim2);
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -56,10 +56,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	if(htim->Instance == htim2.Instance)
 	{
-		
-		t = t + 65536; 
+		timer.PeriodElapsedCallback();
 	}
-	
 }
 /* USER CODE END PFP */
 
@@ -103,12 +101,15 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-	HAL_TIM_Base_Init(&htim2);
-	HAL_TIM_Base_Start_IT(&htim2);
+  timer.setClockFrequency(72000000);
+	timer.init();
+  timer.start();
 		
   while (1)
   {
-		T = __HAL_TIM_GetCounter(&htim2) + t;
+		uint64_t temp = timer.millis();
+    timer.delay(2);
+    T = timer.millis() - temp;
 		// HAL_Delay(1000);
     /* USER CODE END WHILE */
 
@@ -181,7 +182,7 @@ static void MX_TIM2_Init(void)
   htim2.Instance = TIM2;
   htim2.Init.Prescaler = 72 - 1;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 65535;
+  htim2.Init.Period = 65000;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
