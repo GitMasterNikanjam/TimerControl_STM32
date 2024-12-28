@@ -32,6 +32,7 @@ bool TimerControl::init(void)
     }
     
     _htim->Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+		_htim->Instance->PSC = (_clockFrq / 1000000) - 1;
 
     if (HAL_TIM_Base_Init(_htim) != HAL_OK)
     {

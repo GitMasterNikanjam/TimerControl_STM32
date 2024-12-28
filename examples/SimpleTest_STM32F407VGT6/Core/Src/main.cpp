@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "TimerControl.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -43,7 +43,8 @@
 TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
-
+TimerControl timer(&htim2);
+uint32_t T = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -51,6 +52,13 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	if(htim->Instance == TIM2)
+	{
+		timer.PeriodElapsedCallback();
+	}
+}
 
 /* USER CODE END PFP */
 
@@ -90,13 +98,16 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-
+	timer.setClockFrequency(84000000);
+	timer.init();
+	timer.start();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+		T = timer.millis();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

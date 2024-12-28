@@ -3,8 +3,8 @@
 // Define the target MCU family here
 // Uncomment the desired MCU family definition below:
 
-// #define STM32F4
-#define STM32F1
+// #define STM32F1
+#define STM32F4
 // #define STM32H7
 
 // ##################################################################################
@@ -41,7 +41,7 @@ class TimerControl
         TimerControl(TIM_HandleTypeDef *HANDLE);
 
         /**
-         * @brief Set the clock frequency for the timer.
+         * @brief 	
          * @param frq clock frequency in Hz.
          */
         void setClockFrequency(uint32_t frq);
@@ -135,6 +135,8 @@ class TimerControl
         bool _checkParameters(void);
 
 };
+
+
 
 
 
