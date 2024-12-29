@@ -44,7 +44,7 @@ TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
 TimerControl timer(&htim2);
-uint32_t T = 0;
+volatile uint32_t T = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -54,10 +54,10 @@ static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	if(htim->Instance == TIM2)
-	{
-		timer.PeriodElapsedCallback();
-	}
+	// if(htim->Instance == TIM2)
+	// {
+	// 	timer.PeriodElapsedCallback();
+	// }
 }
 
 /* USER CODE END PFP */
@@ -99,7 +99,10 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
 	timer.setClockFrequency(84000000);
-	timer.init();
+	if(timer.init() == false)
+  {
+    T = 404;
+  }
 	timer.start();
   /* USER CODE END 2 */
 
@@ -107,7 +110,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-		T = timer.millis();
+    T = timer.millis();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

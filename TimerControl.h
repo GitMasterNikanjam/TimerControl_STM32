@@ -1,5 +1,6 @@
 #pragma once
 
+// ##################################################################################
 // Define the target MCU family here
 // Uncomment the desired MCU family definition below:
 
@@ -26,6 +27,8 @@
 
 /**
  * @class TimerControl
+ * @brief A class for time managements. eg: time measurements or create delay.
+ * @note The resolution of time measurement is 1us.
  */
 class TimerControl
 {
@@ -37,12 +40,15 @@ class TimerControl
         /**
          * @brief Constructor to initialize the TimerControl object.
          * @param HANDLE A pointer to the HAL timer handle to associate with this instance.
+         * @note The resolution of time measurement is 1us.
          */
         TimerControl(TIM_HandleTypeDef *HANDLE);
 
         /**
-         * @brief 	
-         * @param frq clock frequency in Hz.
+         * @brief Set peripheral timer clock for the HAL timer handle.
+         * @param frq: is peripheral timer clock frequency. [Hz].
+         * @note This value depends on peripheral clock configuration for MCU. 
+         * @warning Set this correctly; otherwise, time calculations will be incorrect.
          */
         void setClockFrequency(uint32_t frq);
 
@@ -72,6 +78,7 @@ class TimerControl
         /**
          * @brief Callback function called when the timer period elapses.
          * @note This function should be used in the void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) function.
+         * @warning The timer reload event interrupt must be enabled; otherwise, this function is useless.
          */
         void PeriodElapsedCallback(void);
 
@@ -111,7 +118,7 @@ class TimerControl
         volatile uint64_t _tMillis;
 
         /// @brief Counter for the number of times the timer period has elapsed.
-        volatile uint32_t _periodElapsedCounter;
+        uint32_t _periodElapsedCounter;
 
         /**
          * @brief Specifies the period value to be loaded into the active 
@@ -119,13 +126,13 @@ class TimerControl
          */
         double _period;
 
-        /// @brief Frequency of the timer in Hz.
+        /// @brief Frequency of the timer reload. [Hz].
         double _frq;
 
-        /// @brief Clock frequency driving the timer in Hz.
+        /// @brief Peripheral timer clock frequency. [Hz].
         uint32_t _clockFrq;
 
-        /// @brief Flag indicating whether the timer has been initialized.
+        /// @brief Flag indicating whether the timer has been initialized successfully.
         bool _initFlag;
 
         /**
