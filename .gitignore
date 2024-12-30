@@ -1,4 +1,5 @@
 Drivers/
+mcu_select.h
 .vscode/
 *.o
 *.crf
