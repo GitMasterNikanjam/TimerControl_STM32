@@ -119,6 +119,11 @@ class TimerControl
          */
         void delayMicroseconds(uint32_t value);
 
+        /**
+         * @brief Get the object's initialization success state.
+         */
+        bool getInitState(void);
+
     private:
 
         /// @brief Pointer to the HAL timer handle associated with this instance.

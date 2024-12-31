@@ -211,6 +211,11 @@ void TimerControl::delayMicroseconds(uint32_t value)
     while((micros() - startTime) < value);
 }
 
+bool TimerControl::getInitState(void)
+{
+    return _initFlag;
+}
+
 bool TimerControl::_checkParameters(void)
 {
     bool state = (_htim->Instance != nullptr) && (_htim->Init.CounterMode == TIM_COUNTERMODE_UP) &&
