@@ -16,69 +16,79 @@ std::string errorMessage;
 
 ```cpp
 /**
-    * @brief Constructor to initialize the TimerControl object.
-    * @param HANDLE A pointer to the HAL timer handle to associate with this instance.
-    */
+ * @brief Constructor to initialize the TimerControl object.
+ * @param HANDLE A pointer to the HAL timer handle to associate with this instance.
+ * @note The resolution of time measurement is 1us.
+ * @warning The HANDLE object must be initialized before creating the TimerControl object.
+ */
 TimerControl(TIM_HandleTypeDef *HANDLE);
 
 /**
-    * @brief Set the clock frequency for the timer.
-    * @param frq clock frequency in Hz.
-    */
+ * @brief Set peripheral timer clock for the HAL timer handle.
+ * @param frq: is peripheral timer clock frequency. [Hz].
+ * @note This value depends on peripheral clock configuration for MCU. 
+ * @warning Set this correctly; otherwise, time calculations will be incorrect.
+ */
 void setClockFrequency(uint32_t frq);
 
 /**
-    * @brief Initialize the timer with calculated parameters and validate settings.
-    * @return True if the initialization is successful, false otherwise.
-    */
+ * @brief Initialize the timer with calculated parameters and validate settings.
+ * @return True if the initialization is successful, false otherwise.
+ */
 bool init(void);
 
 /**
-    * @brief Start the timer.
-    * @return True if the timer starts successfully, false otherwise.
-    */
+ * @brief Start the timer.
+ * @return True if the timer starts successfully, false otherwise.
+ */
 bool start(void);
 
 /**
-    * @brief Reset the timer's counters and internal state.
-    */
+ * @brief Reset the timer's counters and internal state.
+ */
 void reset(void);
 
 /**
-    * @brief Stop the timer.
-    * @return True if the timer stops successfully, false otherwise.
-    */
+ * @brief Stop the timer.
+ * @return True if the timer stops successfully, false otherwise.
+ */
 bool stop(void);
 
 /**
-    * @brief Callback function called when the timer period elapses.
-    * @note This function should be used in the void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) function.
-    */
+ * @brief Callback function called when the timer period elapses.
+ * @note This function should be used in the void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) function.
+ * @warning The timer reload event interrupt must be enabled; otherwise, this function is useless.
+ */
 void PeriodElapsedCallback(void);
 
 /**
-    * @brief Get the elapsed time in microseconds since the timer started.
-    * @return Elapsed time in microseconds.
-    */
+ * @brief Get the elapsed time in microseconds since the timer started.
+ * @return Elapsed time in microseconds.
+ */
 uint64_t micros(void);
 
 /**
-    * @brief Get the elapsed time in milliseconds since the timer started.
-    * @return Elapsed time in milliseconds.
-    */
+ * @brief Get the elapsed time in milliseconds since the timer started.
+ * @return Elapsed time in milliseconds.
+ */
 uint64_t millis(void);
 
 /**
-    * @brief Delay the program execution for a specified time in milliseconds.
-    * @param value Time to delay in milliseconds.
-    */
+ * @brief Delay the program execution for a specified time in milliseconds.
+ * @param value Time to delay in milliseconds.
+ */
 void delay(uint32_t value);
 
 /**
-    * @brief Delay the program execution for a specified time in microseconds.
-    * @param value Time to delay in microseconds.
-    */
+ * @brief Delay the program execution for a specified time in microseconds.
+ * @param value Time to delay in microseconds.
+ */
 void delayMicroseconds(uint32_t value);
+
+/**
+ * @brief Get the object's initialization success state.
+ */
+bool getInitState(void);
 ```
 
 -----------------------------------------------------------------------------------

@@ -42,6 +42,7 @@
  * @class TimerControl
  * @brief A class for time managements. eg: time measurements or create delay.
  * @note The resolution of time measurement is 1us.
+ * @note The timer work in interrupt overflow mode.
  */
 class TimerControl
 {
@@ -54,6 +55,7 @@ class TimerControl
          * @brief Constructor to initialize the TimerControl object.
          * @param HANDLE A pointer to the HAL timer handle to associate with this instance.
          * @note The resolution of time measurement is 1us.
+         * @warning The HANDLE object must be initialized before creating the TimerControl object.
          */
         TimerControl(TIM_HandleTypeDef *HANDLE);
 
@@ -158,7 +160,6 @@ class TimerControl
          * @return True if parameters are valid, false otherwise.
          */
         bool _checkParameters(void);
-
 };
 
 

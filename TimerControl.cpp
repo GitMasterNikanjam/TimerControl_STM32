@@ -114,6 +114,11 @@ bool TimerControl::init(void)
         __HAL_RCC_TIM14_CLK_ENABLE(); // Replace TIMx with the correct timer
     }
     #endif
+    else
+    {
+        errorMessage = "Error TimerControl: The timer instance is not correct.";
+        return false;
+    }
     
 
     if(_checkParameters() == false)
@@ -122,8 +127,10 @@ bool TimerControl::init(void)
         return false;
     }
     
+    _htim->Init.CounterMode = TIM_COUNTERMODE_UP;
     _htim->Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
     _htim->Init.Prescaler = (_clockFrq / 1000000) - 1;
+
 
     if (HAL_TIM_Base_Init(_htim) != HAL_OK)
     {
