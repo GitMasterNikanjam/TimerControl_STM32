@@ -1,0 +1,13 @@
+../Core/Src/TimerControl.cpp:8:1:TimerControl::TimerControl(TIM_HandleTypeDef*)	1
+../Core/Src/TimerControl.cpp:21:6:bool TimerControl::setClockFrequency(uint32_t)	2
+../Core/Src/TimerControl.cpp:33:6:bool TimerControl::init()	6
+../Core/Src/TimerControl.cpp:171:6:bool TimerControl::start()	3
+../Core/Src/TimerControl.cpp:188:6:void TimerControl::reset()	1
+../Core/Src/TimerControl.cpp:196:6:bool TimerControl::stop()	3
+../Core/Src/TimerControl.cpp:213:6:void TimerControl::PeriodElapsedCallback()	1
+../Core/Src/TimerControl.cpp:219:10:uint64_t TimerControl::micros()	1
+../Core/Src/TimerControl.cpp:225:10:uint64_t TimerControl::millis()	1
+../Core/Src/TimerControl.cpp:231:6:void TimerControl::delay(uint32_t)	2
+../Core/Src/TimerControl.cpp:238:6:void TimerControl::delayMicroseconds(uint32_t)	2
+../Core/Src/TimerControl.cpp:245:6:bool TimerControl::getInitState()	1
+../Core/Src/TimerControl.cpp:250:6:bool TimerControl::_checkParameters()	6

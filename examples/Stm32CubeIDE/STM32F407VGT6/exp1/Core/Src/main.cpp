@@ -100,9 +100,9 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	timer.setClockFrequency(84000000);
 	if(timer.init() == false)
-  {
-    T = 404;
-  }
+	{
+	T = 404;
+	}
 	timer.start();
   /* USER CODE END 2 */
 

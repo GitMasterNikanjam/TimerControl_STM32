@@ -3,8 +3,8 @@
  * Auto generated Run-Time-Environment Configuration File
  *      *** Do not modify ! ***
  *
- * Project: 'SimpleTest_STM32F407VGT6' 
- * Target:  'SimpleTest_STM32F407VGT6' 
+ * Project: 'exp1' 
+ * Target:  'exp1' 
  */
 
 #ifndef RTE_COMPONENTS_H
