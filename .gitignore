@@ -11,3 +11,4 @@ mcu_select.h
 *.map
 *.sct
 *.dep
+Debug/
