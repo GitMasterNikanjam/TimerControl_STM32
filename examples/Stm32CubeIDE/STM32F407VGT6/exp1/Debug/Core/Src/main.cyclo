@@ -5,7 +5,7 @@
 ../Core/Src/main.cpp:220:13:void MX_GPIO_Init()	1
 ../Core/Src/main.cpp:242:6:void Error_Handler()	1
 ../Core/Src/main.cpp:251:1:void __static_initialization_and_destruction_0()	1
-../Core/Inc/TimerControl.h:47:7:TimerControl::~TimerControl()	1
+C:/Users/ZBook Fury/Desktop/note/Faraz_Workstation/Projects/Git_Repo/Faraz_PRJ_AntennaTracker_MCU_Firmware/Libraries/TimerControl_STM32/TimerControl.h:47:7:TimerControl::~TimerControl()	1
 ../Core/Src/main.cpp:251:1:void __static_initialization_and_destruction_1()	1
 ../Core/Src/main.cpp:251:1:cpp)	1
 ../Core/Src/main.cpp:251:1:cpp)	1

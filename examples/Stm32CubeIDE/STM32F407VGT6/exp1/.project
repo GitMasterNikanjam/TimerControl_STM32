@@ -30,4 +30,21 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 		<nature>org.eclipse.cdt.core.ccnature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>Libraries</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>Libraries/TimerControl_STM32</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>Libraries/TimerControl_STM32/TimerControl.cpp</name>
+			<type>1</type>
+			<location>C:/Users/ZBook Fury/Desktop/note/Faraz_Workstation/Projects/Git_Repo/Faraz_PRJ_AntennaTracker_MCU_Firmware/Libraries/TimerControl_STM32/TimerControl.cpp</location>
+		</link>
+	</linkedResources>
 </projectDescription>
