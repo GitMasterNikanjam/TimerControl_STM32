@@ -212,7 +212,8 @@ bool TimerControl::stop(void)
 
 void TimerControl::PeriodElapsedCallback(void)
 {
-    _periodElapsedCounter++;
+//    _periodElapsedCounter++;
+    _periodElapsedCounter = _periodElapsedCounter + 1;
     _tMicros = _periodElapsedCounter * _period;
 }
 

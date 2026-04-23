@@ -32,7 +32,7 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>src</name>
+			<name>TimerControl_STM32</name>
 			<type>2</type>
 			<locationURI>$%7BPARENT-4-PROJECT_LOC%7D/src</locationURI>
 		</link>
