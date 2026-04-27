@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;..\..\..\..\..\..\TimerControl_STM32</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../../../../../src</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -507,7 +507,7 @@
             <File>
               <FileName>TimerControl.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\..\..\..\..\TimerControl.cpp</FilePath>
+              <FilePath>..\..\..\..\..\src\TimerControl.cpp</FilePath>
             </File>
           </Files>
         </Group>
